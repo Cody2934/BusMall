@@ -2,13 +2,17 @@ import { productsData } from './productsData.js';
 import { productsArray } from './productsArray.js';
 
 const resultDisplay = document.getElementById('results');
-const submitButton = document.getElementById('submitButton');
-const product3Input = document.getElementById('product3Input');
+const submit1Button = document.getElementById('submit1Button');
+const submit2Button = document.getElementById('submit2Button');
+const submit3Button = document.getElementById('submit3Button');
+
+//const product3Input = document.getElementById('product3Input');
 const products = new productsArray(productsData);
 
-//let productResults = [];
+//productResults = [];
 
 let chosenProducts = 0;
+
 
 const initializeNewProducts = () => {
     const newProduct1 = products.getRandomProduct();
@@ -50,13 +54,33 @@ const initializeNewProducts = () => {
 
 initializeNewProducts();
 
-submitButton.addEventListener('click', () => {
-    console.log(document.querySelector('input:checked'));
+submit1Button.addEventListener('click', () => {
+    console.log(document.querySelector('button:checked'));
     initializeNewProducts();
     chosenProducts++;
     if (chosenProducts > 25){
         resultDisplay.style.visibility = 'visible';
-        submitButton.disabled = 'true';
+        submit1Button.disabled = 'true';
+    }
+});
+submit2Button.addEventListener('click', () => {
+    console.log(document.querySelector('button:checked'));
+    initializeNewProducts();
+    chosenProducts++;
+    if (chosenProducts > 25){
+        resultDisplay.style.visibility = 'visible';
+        submit2Button.disabled = 'true';
+    }
+});
+submit3Button.addEventListener('click', () => {
+    console.log(document.querySelector('button:checked'));
+    initializeNewProducts();
+    chosenProducts++;
+    if (chosenProducts > 25){
+        resultDisplay.style.visibility = 'visible';
+        submit3Button.disabled = 'true';
     }
 });
 
+//'button:checked' returns 'null'
+//on the 25th click 'getRandomProduct' breaks

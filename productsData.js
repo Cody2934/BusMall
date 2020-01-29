@@ -2,103 +2,103 @@
 export const productsData = [
     {
         id: 'bag',
-        image: 'bag.jpg',
+        image: '/assets/bag.jpg',
         name: 'Bag'
     },
     {
         id: 'banana',
-        image: 'banana.jpg',
+        image: '/assets/banana.jpg',
         name: 'Banana'
     },
     {
         id: 'bathroom',
-        image: 'bathroom.jpg',
+        image: '/assets/bathroom.jpg',
         name: 'Bathroom'
     },
     {
         id: 'boots',
-        image: 'boots.jpg',
+        image: '/assets/boots.jpg',
         name: 'Boots'
     },
     {
         id: 'breakfast',
-        image: 'breakfast.jpg',
+        image: '/assets/breakfast.jpg',
         name: 'Breakfast'
     },
     {
         id: 'bubblegum',
-        image: 'bubblegum.jpg',
+        image: '/assets/bubblegum.jpg',
         name: 'Bubblegum'
     },
     {
         id: 'chair',
-        image: 'chair.jpg',
+        image: '/assets/chair.jpg',
         name: 'Chair'
     },
     {
-        id: 'cthulu',
-        image: 'cthulhu.jpg',
+        id: 'cthulhu',
+        image: '/assets/cthulhu.jpg',
         name: 'Cthulhu'
     },
     {
         id: 'dogDuck',
-        image: 'dog-duck.jpg',
+        image: '/assets/dog-duck.jpg',
         name: 'Dog Duck'
     },
     {
         id: 'dragon',
-        image: 'dragon.jpg',
+        image: '/assets/dragon.jpg',
         name: 'Dragon'
     },
     {
         id: 'pen',
-        image: 'pen.jpg',
+        image: '/assets/pen.jpg',
         name: 'Pen'
     },
     {
         id: 'petSweep',
-        image: 'pet-sweep.jpg',
+        image: '/assets/pet-sweep.jpg',
         name: 'Pet Sweep'
     },
     {
         id: 'scissors',
-        image: 'scissors.jpg',
+        image: '/assets/scissors.jpg',
         name: 'Scissors'
     },
     {
         id: 'shark',
-        image: 'shark.jpg',
+        image: '/assets/shark.jpg',
         name: 'Shark'
     },
     {
         id: 'sweep',
-        image: 'sweep.jpg',
+        image: '/assets/sweep.png',
         name: 'Sweep'
     },
     {
         id: 'tauntaun',
-        image: 'tauntaun.jpg',
+        image: '/assets/tauntaun.jpg',
         name: 'Tuantuan'
     },
     {
         id: 'unicorn',
-        image: 'unicorn.jpg',
+        image: '/assets/unicorn.jpg',
         name: 'Unicorn'
     },
     {
         id: 'usb',
-        image: 'usb.jpg',
+        image: '/assets/usb.gif',
         name: 'USB'
     },
     {
         id: 'waterCan',
-        image: 'water-can.jpg',
+        image: '/assets/water-can.jpg',
         name: 'Water Can'
     },
     {
 
         id: 'wineGlass',
-        image: 'wine-glass.jpg',
+        image: '/assets/wine-glass.jpg',
         name: 'Wine Glass'
     },
 ];
