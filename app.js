@@ -54,8 +54,9 @@ const initializeNewProducts = () => {
 
 initializeNewProducts();
 
+
 submit1Button.addEventListener('click', () => {
-    console.log(document.querySelector('button:checked'));
+    console.log(document.getElementById('chosenProduct'));
     initializeNewProducts();
     chosenProducts++;
     if (chosenProducts > 25){
@@ -64,7 +65,7 @@ submit1Button.addEventListener('click', () => {
     }
 });
 submit2Button.addEventListener('click', () => {
-    console.log(document.querySelector('button:checked'));
+    console.log(document.getElementById('product2Name'));
     initializeNewProducts();
     chosenProducts++;
     if (chosenProducts > 25){
@@ -73,7 +74,7 @@ submit2Button.addEventListener('click', () => {
     }
 });
 submit3Button.addEventListener('click', () => {
-    console.log(document.querySelector('button:checked'));
+    console.log(document.getElementById('product3Name'));
     initializeNewProducts();
     chosenProducts++;
     if (chosenProducts > 25){
