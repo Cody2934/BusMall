@@ -1,0 +1,33 @@
+DONE Basic HTML set up based on Ecommerce
+DONE items.js which will hold all of the item data (id, name, img)
+Look at Ecommerce and lab-demo and see what I can pull from it
+Look at lab-demo and try and figure out what I'll need
+
+
+
+// grab 3 random images with no duplicates
+//math.random
+
+// In addition, you'll want to be able to receive clicks on those displayed images, and track those clicks for each image. You'll also want to track how many times each image is displayed, per Individual session
+//button with event listener
+// 
+
+// each session should restart on page load
+
+
+// after 25 selections have been made, stop/disable, and show results
+
+
+
+
+
+
+IF YOU GET STUCK
+Comment line by line
+Google it
+Ask fellow cohort or TA
+Work on CSS
+Bang head and repeat
+
+
+
