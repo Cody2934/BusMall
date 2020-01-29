@@ -1,87 +1,237 @@
-import { productsData } from './productsData.js';
-import { productsArray } from './productsArray.js';
-
-const resultDisplay = document.getElementById('results');
-const submit1Button = document.getElementById('submit1Button');
-const submit2Button = document.getElementById('submit2Button');
-const submit3Button = document.getElementById('submit3Button');
-
-//const product3Input = document.getElementById('product3Input');
-const products = new productsArray(productsData);
-
-//productResults = [];
-
-let chosenProducts = 0;
-
-
-const initializeNewProducts = () => {
-    const newProduct1 = products.getRandomProduct();
-    let newProduct2 = products.getRandomProduct();
-    console.log(newProduct1);
-
-    while (newProduct1.id === newProduct2.id){
-        newProduct2 = products.getRandomProduct;
+import { products } from './data.js';
+// make copy of our products data
+const productsData = products.slice();
+export function findById(productArray, id) {
+    for (let i = 0; i < productArray.length; i++) {
+        const item = productArray[i];
+        if (item.id === id) {
+            return item;
+        }
     }
-    console.log(newProduct2);
-
-    let newProduct3 = products.getRandomProduct();
-    while (newProduct1.id === newProduct3.id || newProduct2.id === newProduct3.id){
-        newProduct3 = products.getRandomProduct();
-    }
-    console.log(newProduct3);
-
-    const product1Object = newProduct1;
-    product1Object.textContent = product1Object.name;
-    const product1Image = document.getElementById('product1Image');
-    product1Image.src = product1Object.image;
-    const product1Name = document.getElementById('product1Name');
-    product1Name.textContent = product1Object.name;
-
-    const product2Object = newProduct2;
-    product2Object.textContent = product2Object.name;
-    const product2Image = document.getElementById('product2Image');
-    product2Image.src = product2Object.image;
-    const product2Name = document.getElementById('product2Name');
-    product2Name.textContent = product2Object.name;
-
-    const product3Object = newProduct3;
-    product3Object.textContent = product3Object.name;
-    const product3Image = document.getElementById('product3Image');
-    product3Image.src = product3Object.image;
-    const product3Name = document.getElementById('product3Name');
-    product3Name.textContent = product3Object.name;
+}
+// keep track of how many times a user has voted, period (up to 25)
+let totalVotes;
+let productVoteDetails;
+// keep track of the votes for a given product
+//let productVoteDetails;
+const initializeState = () => {
+    totalVotes = 0;
+    productVoteDetails = [];
+    productsData.forEach(product => {
+        const initialVote = {
+            id: product.id,
+            votes: 0
+        };
+        productVoteDetails.push(initialVote);
+    });
 };
-
-initializeNewProducts();
-
-
-submit1Button.addEventListener('click', () => {
-    console.log(document.getElementById('chosenProduct'));
-    initializeNewProducts();
-    chosenProducts++;
-    if (chosenProducts > 25){
-        resultDisplay.style.visibility = 'visible';
-        submit1Button.disabled = 'true';
+// set the votes array ([]) and total votes array ([]) to their initial states
+initializeState();
+// display three random non duplicated products
+function getRandomProduct() {
+    const randomIndex = Math.floor(Math.random() * productsData.length);
+    const randomProduct = productsData[randomIndex];
+    return randomProduct;
+}
+// display three products on the screen
+const displayThreeProducts = () => {
+    // GET three random products from our data
+    const product1 = getRandomProduct(productsData);
+    let product2 = getRandomProduct(productsData);
+    let product3 = getRandomProduct(productsData);
+    // make sure the products are unique by comparing them ( || = OR )
+    while (product1.id === product2.id || product2.id === product3.id || product1 === product3) {
+        // generate a new random unique product
+        product2 = getRandomProduct(productsData);
+        product3 = getRandomProduct(productsData);
     }
-});
-submit2Button.addEventListener('click', () => {
-    console.log(document.getElementById('product2Name'));
-    initializeNewProducts();
-    chosenProducts++;
-    if (chosenProducts > 25){
-        resultDisplay.style.visibility = 'visible';
-        submit2Button.disabled = 'true';
+    // render these three items on the screen as radio buttons with the same name and different values
+    const radio1 = document.getElementById('product1');
+    const radio2 = document.getElementById('product2');
+    const radio3 = document.getElementById('product3');
+    const radio1Span = document.getElementById('product1span');
+    const radio2Span = document.getElementById('product2span');
+    const radio3Span = document.getElementById('product3span');
+    const img1 = document.getElementById('img1');
+    const img2 = document.getElementById('img2');
+    const img3 = document.getElementById('img3');
+    radio1.value = product1.id;
+    radio2.value = product2.id;
+    radio3.value = product3.id;
+    radio1Span.textContent = product1.name;
+    radio2Span.textContent = product2.name;
+    radio3Span.textContent = product3.name;
+    img1.src = product1.image;
+    img2.src = product2.image;
+    img3.src = product3.image;
+};
+const form = document.querySelector('form');
+const reset = () => {
+    initializeState();
+};
+// EVENT LISTENER
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const selectedProductId = formData.get('product');
+    totalVotes++;
+    // which ever one they clicked on, see if they've voted for it before
+    const productInVotesArray = findById(productVoteDetails, selectedProductId);
+    if (productInVotesArray) {
+        // if there's a product in the votes array, increment votes for the product in the votes array
+        productInVotesArray.votes++;
+    } else {
+        // if there's no product in the votes array, push a product into the vote array
+        const newVoteObject = {
+            id: selectedProductId,
+            votes: 1
+        };
+        productVoteDetails.push(newVoteObject);
     }
-});
-submit3Button.addEventListener('click', () => {
-    console.log(document.getElementById('product3Name'));
-    initializeNewProducts();
-    chosenProducts++;
-    if (chosenProducts > 25){
-        resultDisplay.style.visibility = 'visible';
-        submit3Button.disabled = 'true';
+    localStorage.setItem('votes', JSON.stringify(productVoteDetails));
+    if (totalVotes >= 25) {
+        // document.querySelector('button').disabled = true;
+        alert('Thank you for your participation.');
+        // reset the whole app when finished
+        reset();
+        window.location = 'results.html';
     }
+    displayThreeProducts();
 });
+displayThreeProducts();
+// import { products } from './data';
 
-//'button:checked' returns 'null'
-//on the 25th click 'getRandomProduct' breaks
+// const productsData = products.slice();
+
+// export function findById(items, id) {
+//     for (let i = 0; i < items.length; i++) {
+//         const item = items[i];
+//         if (item.id === id) {
+//             return item;
+//         }
+//     }
+// }
+
+// // keep track of how many times a user has voted, period (up to 25)
+// // keep track of votes for a given product
+// let totalVotes;
+// let productVoteDetails;
+
+
+// const initializeState = () => { 
+//     totalVotes = 0;
+//     productVoteDetails = [];
+//     productsData.forEach(product => {
+//         const initialVote = {
+//             id: product.id,
+//             votes: 0
+//         };
+//         productVoteDetails.push(initialVote);
+//     });
+// };
+
+// initializeState();
+
+
+// function getRandomProduct() {
+//     const randomIndex = Math.floor(Math.random() * productsData.length);
+//     const randomProduct = productsData[randomIndex];
+//     return randomProduct;
+// }
+
+
+// // display three random NON-duplicated products
+// // display three NEW NON-duplicated products ***refresh products between votes***
+// const displayThreeProducts = () => {
+//     // GET three random products from our data
+//     const product1 = getRandomProduct(productsData);
+//     let product2 = getRandomProduct(productsData);
+//     let product3 = getRandomProduct(productsData);
+
+//     // make sure the products are unique/not the same
+//     while (product1.id === product2.id
+//         || product2.id === product3.id
+//         || product1.id === product3.id
+//     ) {
+//         product2 = getRandomProduct(productsData);
+//         product3 = getRandomProduct(productsData);
+//     }
+
+//     // render these three items on the screen as radio buttons with the same name and different values
+//     const radio1 = document.getElementById('product1');
+//     const radio2 = document.getElementById('product2');
+//     const radio3 = document.getElementById('product3');
+//     const img1 = document.getElementById('image1');
+//     const img2 = document.getElementById('image2');
+//     const img3 = document.getElementById('image3');
+//     const radio1Span = document.getElementById('product1span');
+//     const radio2Span = document.getElementById('product2span');
+//     const radio3Span = document.getElementById('product3span');
+
+//     radio1.value = product1.id;
+//     radio2.value = product2.id;
+//     radio3.value = product3.id;
+//     img1.src = product1.image;
+//     img2.src = product2.image;
+//     img3.src = product3.image;
+//     radio1Span.textContent = product1.name;
+//     radio2Span.textContent = product2.name;
+//     radio3Span.textContent = product3.name;
+// };
+
+// const form = document.querySelector('form');
+
+// form.addEventListener('submit', (e) => {
+//     e.preventDefault();
+
+//     const formData = new FormData(form);
+
+//     const selectedProductId = formData.get('product');
+
+//     totalVotes++;
+
+//     // whichever one they clicked on, see if they've voted for it before
+//     const productInVotesArray = findById(productVoteDetails, selectedProductId);
+
+//     if (productInVotesArray) {
+//         productInVotesArray.votes++;
+//     } else {
+//         // const newVoteObject = {
+//         //     id: selectedProductId,
+//         //     votes: 1,
+//         // };
+
+//         productVoteDetails.push({
+//             id: selectedProductId,
+//             votes: 1,
+//         });
+//     }
+
+//     document.querySelector('input[name="product"]:checked').checked = false;
+
+//     localStorage.setItem('__votes', JSON.stringify(productVoteDetails));
+//     // EVENT LISTENER
+//     // when they select a product, update the total votes
+//     // update the productVoteDetails
+//     // if theres coffee in the votes array, increment the votes for coffee in the array
+//     // if theres no coffee in the votes array, push some coffee into the array
+
+//     if (totalVotes >= 3) {
+//         window.location = 'results.html';
+//     }
+
+//     displayThreeProducts();
+// });
+
+// // function reset() {
+// //     initializeState();
+// // };
+
+
+// displayThreeProducts();
+
+// // reset the whole app when finished
+//     // set the votes array ([]) and total votes (0) to their initial states
+
+// // STRETCH keep track of how many times a product appears so we can build a percentage (times clicked / times shown)
+// // STRETCH: don't show the same product twice in a row

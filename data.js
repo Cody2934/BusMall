@@ -1,22 +1,21 @@
-//creat some products based on the pics and give them id, image, name
-export const productsData = [
+export const products = [
     {
         id: 'bag',
-        image: '/assets/bag.jpg',
+        image: 'assets/bag.jpg',
         name: 'Bag',
         clickCount: 0,
         shownCount: 0
     },
     {
         id: 'banana',
-        image: '/assets/banana.jpg',
+        image: 'assets/banana.jpg',
         name: 'Banana',
         clickCount: 0,
         shownCount: 0
     },
     {
         id: 'bathroom',
-        image: '/assets/bathroom.jpg',
+        image: 'assets/bathroom.jpg',
         name: 'Bathroom',
         clickCount: 0,
         shownCount: 0
